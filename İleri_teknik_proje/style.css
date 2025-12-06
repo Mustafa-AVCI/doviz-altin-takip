@@ -1,0 +1,105 @@
+/* Arka plan */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+/* Üst başlık */
+.header {
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #fbbf24;
+}
+
+.subtitle {
+    margin-top: .3rem;
+    color: #cbd5e1;
+    font-size: .9rem;
+}
+
+/* Konteyner */
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 1rem;
+}
+
+/* Kartlar */
+.card {
+    background: #1e293b;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.3rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.gold-card h2 {
+    color: #fbbf24;
+}
+
+.currency-card h2 {
+    color: #60a5fa;
+}
+
+/* Fiyat grid */
+.price-grid {
+    margin-top: 1rem;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    padding: .7rem 0;
+    border-bottom: 1px solid #334155;
+}
+
+.label {
+    font-weight: 500;
+}
+
+.value {
+    font-weight: 700;
+}
+
+/* Buton */
+.update-btn {
+    width: 100%;
+    padding: .9rem;
+    background: #fbbf24;
+    color: #1e293b;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: .5rem;
+}
+
+.update-btn:active {
+    transform: scale(.97);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #64748b;
+    font-size: .85rem;
+}
+
+/* Mobil uyumluluk */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.4rem;
+    }
+    .card {
+        padding: .8rem;
+    }
+}
