@@ -1,66 +1,121 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Döviz & Altın Takip - Taslak</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canlı Döviz & Altın</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <header class="header">
-    <h1>💰 Döviz & Altın Takip</h1>
-    <p class="subtitle">Gerçek zamanlı fiyat görünümü (taslak)</p>
-    <p>
-
-    Bu proje, HTML, CSS ve JavaScript kullanılarak geliştirilmiş bir uygulama.
-    Uygulamanın amacı, döviz (USD, EUR, GBP) ve altın (Gram ve Ons) fiyatlarını kullanıcıya modern ve
-    anlaşılır bir arayüzle sunmaktır. Bu aşamada uygulama taslak olarak hazırlanmıştır. güncellemelr için bekleyişte kalınız. teşekkürler..
-</p>
-
+  <h1>💰 Canlı Döviz & Altın Takip</h1>
+  <p class="subtitle">Powered by Mustafa AVCI</p>
 </header>
 
 <main class="container">
 
-    <section class="card gold-card">
-        <h2>Altın Fiyatları</h2>
-        <div class="price-grid">
-            <div class="price-item">
-                <span class="label">Gram Altın</span>
-                <span class="value">- ₺</span>
-            </div>
-            <div class="price-item">
-                <span class="label">Ons Altın</span>
-                <span class="value">- $</span>
-            </div>
-        </div>
-    </section>
+  <section class="card gold-card">
+    <h2>Altın Fiyatları</h2>
 
-    <section class="card currency-card">
-        <h2>Döviz Kurları</h2>
-        <div class="price-grid">
-            <div class="price-item">
-                <span class="label">USD / TRY</span>
-                <span class="value">-</span>
-            </div>
-            <div class="price-item">
-                <span class="label">EUR / TRY</span>
-                <span class="value">-</span>
-            </div>
-            <div class="price-item">
-                <span class="label">GBP / TRY</span>
-                <span class="value">-</span>
-            </div>
-        </div>
-    </section>
+    <div class="price-item">
+      <span class="label">Gram Altın</span>
+      <div class="right">
+        <span class="value" id="gram">Yükleniyor...</span>
+        <small class="delta" id="gramChange">-</small>
+      </div>
+    </div>
 
-    <button class="update-btn">Güncelle (Yakında)</button>
+    <div class="price-item">
+      <span class="label">Ons Altın</span>
+      <div class="right">
+        <span class="value" id="ons">Yükleniyor...</span>
+        <small class="delta" id="onsChange">-</small>
+      </div>
+    </div>
+
+    <div class="price-item">
+      <span class="label">Çeyrek Altın</span>
+      <div class="right">
+        <span class="value" id="ceyrek">Yükleniyor...</span>
+        <small class="delta" id="ceyrekChange">-</small>
+      </div>
+    </div>
+
+    <div class="price-item">
+      <span class="label">Cumhuriyet Altını</span>
+      <div class="right">
+        <span class="value" id="cumhuriyet">Yükleniyor...</span>
+        <small class="delta" id="cumhuriyetChange">-</small>
+      </div>
+    </div>
+
+    <p class="hint">
+      Not: Çeyrek/Cumhuriyet hesapları “yaklaşık” katsayı ile demo amaçlıdır.
+    </p>
+  </section>
+
+  <section class="card currency-card">
+    <h2>Döviz Kurları</h2>
+    <div id="market" class="scroll-box"></div>
+  </section>
+
+  <button class="info-btn" onclick="openInfo()">Döviz Kısaltmaları</button>
+
+  <section class="card">
+    <h2>📈 Son 24 Saat Grafikleri</h2>
+    <div class="chart-wrap">
+      <h3>Gram Altın</h3>
+      <canvas id="goldChart" height="120"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <h3>USD / TRY</h3>
+      <canvas id="usdChart" height="120"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <h3>EUR / TRY</h3>
+      <canvas id="eurChart" height="120"></canvas>
+    </div>
+  </section>
+
+  <button class="info-btn" onclick="openConverter()">Döviz Çevirici</button>
 
 </main>
 
+<div id="infoModal" class="modal">
+  <div class="modal-content">
+    <h3>Döviz Açıklamaları</h3>
+    <ul id="abbrList"></ul>
+    <button onclick="closeInfo()">Kapat</button>
+  </div>
+</div>
+
+<div id="converter" class="modal">
+  <div class="modal-content big">
+    <h3>Döviz Çevirici</h3>
+
+    <div class="conv-row">
+      <input type="number" id="amount1" value="100" />
+      <select id="cur1"></select>
+    </div>
+
+    <button class="swap" onclick="swap()">⇅</button>
+
+    <div class="conv-row">
+      <input type="number" id="amount2" placeholder="Sonuç" />
+      <select id="cur2"></select>
+    </div>
+
+    <button class="update-btn" onclick="convert()">Hesapla</button>
+    <button onclick="closeConverter()">Kapat</button>
+  </div>
+</div>
+
 <footer class="footer">
-    <p>Taslak sürüm • Geliştirme devam ediyor..</p>
+  <p id="lastUpdate">-</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
